@@ -1,0 +1,26 @@
+{% extends "base.html" %}
+{% block title %}Edit expense{% endblock %}
+{% block content %}
+<section class="form-page">
+    <a class="back-link" href="{{ url_for('dashboard') }}">← Back to dashboard</a>
+    <div class="form-card expense-form-card">
+        <div class="form-heading"><span class="form-icon">✎</span><h1>Edit your expense</h1><p>Make a quick change and save when you're ready.</p></div>
+        <form method="post" action="{{ url_for('edit_expense', expense_id=expense.id) }}" class="stacked-form">
+            <input type="hidden" name="_csrf_token" value="{{ csrf_token() }}">
+            <label for="title">What did you spend on?</label>
+            <input id="title" name="title" type="text" value="{{ request.form.get('title', expense.title) }}" required maxlength="100" autofocus>
+            <div class="form-row">
+                <div><label for="amount">Amount (₹)</label><input id="amount" name="amount" type="number" min="0.01" max="1000000000" step="0.01" value="{{ request.form.get('amount', expense.amount) }}" required></div>
+                <div><label for="expense_date">Date</label><input id="expense_date" name="expense_date" type="date" value="{{ request.form.get('expense_date', expense.expense_date or '') }}" required></div>
+            </div>
+            <label for="category">Category</label>
+            <select id="category" name="category" required>
+                {% for category in categories %}
+                    <option value="{{ category }}" {% if request.form.get('category', expense.category) == category %}selected{% endif %}>{{ category }}</option>
+                {% endfor %}
+            </select>
+            <button class="button button-full" type="submit">Save changes <span aria-hidden="true">→</span></button>
+        </form>
+    </div>
+</section>
+{% endblock %}

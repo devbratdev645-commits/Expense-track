@@ -1,0 +1,15 @@
+{% extends "base.html" %}
+{% block title %}About Expense Tracker{% endblock %}
+{% block content %}
+<section class="simple-hero">
+    <span class="eyebrow">A LITTLE ABOUT US</span>
+    <h1>Money tracking should feel <span>simple.</span></h1>
+    <p>Expense Tracker is a small, beginner-friendly expense tracker made to help you notice everyday spending without turning it into a chore.</p>
+    <a class="button" href="{{ url_for('register') }}">Start tracking <span aria-hidden="true">→</span></a>
+</section>
+<section class="about-cards">
+    <article class="panel about-card"><span class="about-icon">◎</span><h2>Clear, not complicated</h2><p>Add a name, amount, date and category. Your dashboard does the simple sums for you.</p></article>
+    <article class="panel about-card"><span class="about-icon about-icon-yellow">♡</span><h2>Made for everyday life</h2><p>Use it for lunch, groceries, bills or anything else you want to keep an eye on.</p></article>
+    <article class="panel about-card"><span class="about-icon about-icon-blue">⌂</span><h2>Your own account</h2><p>Your saved expenses belong to your account and are kept separate from other users.</p></article>
+</section>
+{% endblock %}

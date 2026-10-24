@@ -1,0 +1,32 @@
+{% extends "base.html" %}
+{% block title %}Create account{% endblock %}
+{% block content %}
+<section class="auth-layout">
+    <div class="auth-story">
+        <span class="eyebrow">A GOOD PLACE TO START</span>
+        <h1>Small money habits can make a big difference.</h1>
+        <p>Set up your free account and start keeping track of your everyday expenses.</p>
+        <div class="auth-benefits">
+            <span><i>✓</i> Your own private expense list</span>
+            <span><i>✓</i> A simple monthly overview</span>
+            <span><i>✓</i> Easy to update whenever you need</span>
+        </div>
+    </div>
+    <div class="form-card">
+        <div class="form-heading"><span class="form-icon form-icon-warm">✳</span><h2>Let's get started</h2><p>Create your  account.</p></div>
+        <form method="post" action="{{ url_for('register') }}" class="stacked-form">
+            <input type="hidden" name="_csrf_token" value="{{ csrf_token() }}">
+            <label for="name">Your name</label>
+            <input id="name" name="name" type="text" autocomplete="name" placeholder="e.g. Aditi Sharma" value="{{ request.form.get('name', '') }}" required maxlength="80">
+            <label for="email">Email address</label>
+            <input id="email" name="email" type="email" autocomplete="email" placeholder="you@example.com" value="{{ request.form.get('email', '') }}" required maxlength="254">
+            <label for="password">Password <span class="label-hint">At least 8 characters</span></label>
+            <input id="password" name="password" type="password" autocomplete="new-password" placeholder="Create a password" required minlength="8">
+            <label for="confirm_password">Confirm password</label>
+            <input id="confirm_password" name="confirm_password" type="password" autocomplete="new-password" placeholder="Type it one more time" required minlength="8">
+            <button class="button button-full" type="submit">Create my account <span aria-hidden="true">→</span></button>
+        </form>
+        <p class="form-switch">Already have an account? <a href="{{ url_for('login') }}">Log in</a></p>
+    </div>
+</section>
+{% endblock %}

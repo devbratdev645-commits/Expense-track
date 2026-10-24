@@ -1,0 +1,24 @@
+{% extends "base.html" %}
+{% block title %}Log in{% endblock %}
+{% block content %}
+<section class="auth-layout">
+    <div class="auth-story">
+        <span class="eyebrow">GOOD TO SEE YOU AGAIN</span>
+        <h1>A clearer view of your spending is just a step away.</h1>
+        <p>Log in to pick up where you left off and keep your money notes together.</p>
+        <div class="auth-quote"><span>“</span><p>Being aware is the first step to feeling in control.</p></div>
+    </div>
+    <div class="form-card">
+        <div class="form-heading"><span class="form-icon">↗</span><h2>Welcome back</h2><p>Enter your details to log in.</p></div>
+        <form method="post" action="{{ url_for('login') }}" class="stacked-form">
+            <input type="hidden" name="_csrf_token" value="{{ csrf_token() }}">
+            <label for="email">Email address</label>
+            <input id="email" name="email" type="email" autocomplete="email" placeholder="you@example.com" value="{{ request.form.get('email', '') }}" required maxlength="254">
+            <label for="password">Password</label>
+            <input id="password" name="password" type="password" autocomplete="current-password" placeholder="Your password" required>
+            <button class="button button-full" type="submit">Log in <span aria-hidden="true">→</span></button>
+        </form>
+        <p class="form-switch">New to Expense Tracker? <a href="{{ url_for('register') }}">Create an account</a></p>
+    </div>
+</section>
+{% endblock %}

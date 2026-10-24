@@ -1,0 +1,25 @@
+{% extends "base.html" %}
+{% block title %}Contact{% endblock %}
+{% block content %}
+<section class="contact-layout">
+    <div class="contact-copy">
+        <span class="eyebrow">WE'RE HERE TO HELP</span>
+        <h1>Have a question?<br><span>Say hello.</span></h1>
+        <p>Something not working, or have an idea to share? Send us a note and we'll keep it safe in our message list.</p>
+        <div class="contact-note"><span>✦</span><div><strong>We'd love to hear from you</strong><p>Share a question, suggestion or a little feedback.</p></div></div>
+    </div>
+    <div class="form-card">
+        <div class="form-heading"><span class="form-icon form-icon-warm">✉</span><h2>Send a message</h2><p>Fill in the details below.</p></div>
+        <form method="post" action="{{ url_for('contact') }}" class="stacked-form">
+            <input type="hidden" name="_csrf_token" value="{{ csrf_token() }}">
+            <label for="name">Your name</label>
+            <input id="name" name="name" type="text" autocomplete="name" placeholder="Your name" value="{{ request.form.get('name', current_user.name if current_user else '') }}" required maxlength="80">
+            <label for="email">Email address</label>
+            <input id="email" name="email" type="email" autocomplete="email" placeholder="you@example.com" value="{{ request.form.get('email', current_user.email if current_user else '') }}" required maxlength="254">
+            <label for="message">Your message</label>
+            <textarea id="message" name="message" rows="5" placeholder="How can we help?" required maxlength="2000">{{ request.form.get('message', '') }}</textarea>
+            <button class="button button-full" type="submit">Send message <span aria-hidden="true">→</span></button>
+        </form>
+    </div>
+</section>
+{% endblock %}

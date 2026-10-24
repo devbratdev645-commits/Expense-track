@@ -1,0 +1,28 @@
+{% extends "base.html" %}
+{% block title %}Add an expense{% endblock %}
+{% block content %}
+<section class="form-page">
+    <a class="back-link" href="{{ url_for('dashboard') }}">← Back to dashboard</a>
+    <div class="form-card expense-form-card">
+        <div class="form-heading"><span class="form-icon form-icon-warm">＋</span><h1>Add an expense</h1><p>Jot it down now. You can always change it later.</p></div>
+        <form method="post" action="{{ url_for('add_expense') }}" class="stacked-form">
+            <input type="hidden" name="_csrf_token" value="{{ csrf_token() }}">
+            <label for="title">What did you spend on?</label>
+            <input id="title" name="title" type="text" placeholder="e.g. Lunch with friends" value="{{ request.form.get('title', '') }}" required maxlength="100" autofocus>
+            <div class="form-row">
+                <div><label for="amount">Amount (₹)</label><input id="amount" name="amount" type="number" min="0.01" max="1000000000" step="0.01" placeholder="0.00" value="{{ request.form.get('amount', '') }}" required></div>
+                <div><label for="expense_date">Date</label><input id="expense_date" name="expense_date" type="date" value="{{ request.form.get('expense_date', today) }}" required></div>
+            </div>
+            <label for="category">Category</label>
+            <select id="category" name="category" required>
+                <option value="" disabled {% if not request.form.get('category') %}selected{% endif %}>Choose a category</option>
+                {% for category in categories %}
+                    <option value="{{ category }}" {% if request.form.get('category') == category %}selected{% endif %}>{{ category }}</option>
+                {% endfor %}
+            </select>
+            <button class="button button-full" type="submit">Save expense <span aria-hidden="true">→</span></button>
+        </form>
+        <p class="form-footnote">Only you can see the expenses saved to your account.</p>
+    </div>
+</section>
+{% endblock %}
